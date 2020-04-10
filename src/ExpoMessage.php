@@ -50,6 +50,13 @@ class ExpoMessage
     protected $channelId = '';
 
     /**
+     * The Category of this notification, used by devices to create context action on notifications .
+     *
+     * @var string
+     */
+    protected $category = '';
+
+    /**
      * The json data attached to the message.
      *
      * @var string
@@ -173,6 +180,20 @@ class ExpoMessage
     }
 
     /**
+     * Set the category for context actions.
+     *
+     * @param string $category
+     *
+     * @return $this
+     */
+    public function setCategory(string $category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
      * Set the json Data attached to the message.
      *
      * @param array|string $data
@@ -215,6 +236,10 @@ class ExpoMessage
         ];
         if (! empty($this->channelId)) {
             $message['channelId'] = $this->channelId;
+        }
+
+        if (! empty($this->category)) {
+            $message['_category'] = $this->category;
         }
 
         return $message;
